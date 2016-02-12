@@ -48,8 +48,6 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 //connect to mongo
-// mongoose.connect('mongodb://localhost/animenetwork');
-// mongoose.connect(process.env.MONGOLAB_URI);
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/drinks');
 
 // catch 404 and forward to error handler

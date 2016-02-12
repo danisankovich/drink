@@ -17,10 +17,11 @@
       <div id="responsive-menu">
         <div class="top-bar-right">
           <ul class="menu">
-            <li>
-              <input type="search" placeholder="Search" ng-model="drinkName"></li>
-            <li>
-              <button type="button" class="button" ng-click="search(drinkName)">Search</button>
+            <li ng-if="currentUser">
+              <button class="button" ui-sref="saved">My Saved Drinks</button>
+            </li>
+            <li ng-if="!myState">
+              <button class="button" ui-sref="/">Search View</button>
             </li>
             <li>&nbsp;</li>
             <li>&nbsp;</li>
@@ -115,5 +116,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>
   <script src="javascripts/script.js"></script>
   <script src="javascripts/mainCtrl.js"></script>
+  <script src="javascripts/savedCtrl.js"></script>
   </body>
 </html>

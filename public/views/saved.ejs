@@ -1,20 +1,15 @@
 <div class="container">
   <div class="row">
     <div class="columns small-12 large-12 heightSpace">
-      <div class="small-5 small-offset-3 columns">
-        <input type="text" placeholder="Search" ng-model="drinkName">
-      </div>
-      <div class="small-3 columns">
-        <button type="button" class="button" ng-click="search(drinkName)">Search</button>
-      </div>
       <div ng-show="drinks"><input type="text" id="searchBox" ng-model="searchBox" placeholder="Filter Drinks"></div>
       <div ng-repeat="drink in drinks | filter: searchBox">
         <div class="columns small-6 large-4 setHeight">
           <div class="borderThis">
             <h4 class="title">{{drink.strDrink}}({{drink.strAlcoholic}})</h4>
             <h6>{{drink.strCategory}}</h6>
+            <!-- QITHIN A MODAL<div ng-if="drink.strDrinkThumb"><img ng-src="{{drink.strDrinkThumb}}" alt="" class="imgSize"></div> -->
             <div class="scroll">
-              <div ng-if="currentUser && !drink.savedAlready"><button class="button" ng-click="save(drink)" ng-hide="drink.savedAlready">Save</button></div>
+              <button class="button" ng-click="remove()">Remove</button>
               <div><p>Instructions: {{drink.strInstructions}}</p></div>
               <h5>Ingredients/Measurements</h5>
               <ul>

@@ -1,18 +1,53 @@
 app.controller('mainCtrl', function($scope, $state, $http){
-  console.log("hello")
   $scope.message = "hello"
   $http.get('/user').success(function(currentUser){
+    $scope.theseDrinks = []
+    currentUser.savedDrinks.forEach(function(e) {
+      $scope.theseDrinks.push(e.strDrink)
+    })
     $scope.currentUser = currentUser
+
+    $scope.myState = false
   })
   var $modal = $('#loginModal');
 
-
+  $scope.save = function(drink) {
+    $scope.drinks[this.$index].savedAlready = true;
+    $http.post('/save', drink).success(function(user) {
+      $scope.currentUser = user;
+    })
+  }
+  $scope.showMine = function() {
+    console.log($scope.currentUser.savedDrinks)
+    $scope.drinks = $scope.currentUser.savedDrinks
+    $scope.myState = true;
+  }
   $scope.search = function(drinkName) {
     searchResult = {}
+    $scope.myState = false;
     searchResult.drinkName = drinkName
     $http.post('/drink', searchResult ).success(function(drink) {
-      console.log(drink)
-      $scope.drinks = drink
+      if(drink.length > 0) {
+        console.log(drink)
+        if($scope.currentUser) {
+          drink.forEach(function(e) {
+            console.log(e.strDrink)
+            if($scope.theseDrinks.indexOf(e.strDrink) > -1) {
+              e.savedAlready = true
+            }
+            else {
+              e.savedAlready = false
+            }
+          })
+          $scope.drinks = drink
+        }
+        else {
+          $scope.drinks = drink
+        }
+      }
+      else {
+        alert("No Results Found")
+      }
     })
   }
   $scope.closeModal = function() {
@@ -24,6 +59,10 @@ app.controller('mainCtrl', function($scope, $state, $http){
 
   $scope.login = function(user) {
     $http.post('/users/login', user).success(function(user){
+      $scope.theseDrinks = []
+      user.savedDrinks.forEach(function(e) {
+        $scope.theseDrinks.push(e.strDrink)
+      })
       $scope.currentUser = user;
       $.ajax('/')
         .done(function(resp){

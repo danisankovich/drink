@@ -21,6 +21,21 @@ router.get('/user', function(req, res, next) {
     }
   });
 });
+router.post('/save', function(req, res) {
+  console.log(req.body)
+  User.findById(req.user.id, function(err, user) {
+    user.savedDrinks.push(req.body)
+    user.save()
+    res.json(user)
+  })
+})
+router.post('/editsaved', function(req, res) {
+  User.findById(req.user.id, function(err, user) {
+    user.savedDrinks = req.body.savedDrinks
+    user.save()
+    res.json(user)
+  })
+})
 router.post('/drink', function(req, res) {
   unirest.get('http://www.thecocktaildb.com/api/json/v1/1/search.php?s=' + req.body.drinkName)
   .header("Accept", "application/json")
