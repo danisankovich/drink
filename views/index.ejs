@@ -12,135 +12,29 @@
         <span data-responsive-toggle="responsive-menu" data-hide-for="medium">
           <span class="menu-icon dark" data-toggle></span>
         </span>
-        <strong>Site Title</strong>
+        <h4>Drink Me</h4>
       </div>
       <div id="responsive-menu">
-        <div class="top-bar-left">
-          <ul class="dropdown menu" data-dropdown-menu>
-            <li>
-              <a href="#">One</a>
-              <ul class="menu vertical">
-                <li><a href="#">One</a></li>
-                <li><a href="#">Two</a></li>
-                <li><a href="#">Three</a></li>
-              </ul>
-            </li>
-            <li><a href="#">Two</a></li>
-            <li><a href="#">Three</a></li>
-          </ul>
-        </div>
         <div class="top-bar-right">
           <ul class="menu">
-            <li><input type="search" placeholder="Search"></li>
-            <li><button type="button" class="button">Search</button></li>
-            <li><a data-open="loginModal">Login/Register</a></li>
+            <li>
+              <input type="search" placeholder="Search" ng-model="drinkName"></li>
+            <li>
+              <button type="button" class="button" ng-click="search(drinkName)">Search</button>
+            </li>
+            <li>&nbsp;</li>
+            <li>&nbsp;</li>
+            <li>&nbsp;</li>
+            <li>&nbsp;</li>
+            <li ng-show="currentUser">Welcome: {{currentUser.username}}</li>
+            <li ng-show="currentUser"><a href='/logout'>Logout <span class="glyphicon glyphicon-log-in"></span></a></li>
+            <li ng-hide="currentUser"><a data-open="loginModal">Login/Register</a></li>
           </ul>
         </div>
       </div>
     </div>
-    <!-- <nav class="top-bar" data-topbar role="navigation">
-    <ul class="title-area">
-      <li class="name">
-        <h1><a ui-sref="/" class="navbar-brand" href="#">Anime Network</a></h1>
-      </li>
-      <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-    </ul>
-    <section class="top-bar-section">
-      <ul class="nav navbar-nav navbar-right right">
-        <li><a class="button primary" data-reveal-id="myModal">Search By Genre</a></li>
-        <li class="has-form">
-          <form>
-            <div class="row collapse">
-              <div class="form-group move-down large-8 small-9 columns ui-widget">
-                <input id="tags" class="autocomplete searchinput" ng-model="anime" placeholder="Search Titles">
-              </div>
-              <div class="large-4 small-3 columns">
-                <button type="button" class="alert button expand" ng-click="searchAnime(anime)">Search</button>
-              </div>
-            </div>
-          </form>
-        </li>
-        <li ng-show="currentUser"><a ui-sref="profile">{{currentUser.username}}</a></li>
-        <li ng-show="currentUser"><a href='/logout'>Logout <span class="glyphicon glyphicon-log-in"></span></a></li>
-        <li ng-hide="currentUser"><a data-reveal-id="loginModal">Login/Register</a></li>
-      </ul>
-      <div id="loginModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-
-        <div class="container">
-          <div class="row">
-            <div class="columns small-12">
-              <div class="columns small-6">
-                <form role="form" ng-submit="login(user)" class="loginForm">
-                  <fieldset class="thoseForms">
-                    <div class="col-lg-10 col-lg-offset-2">
-                      <legend>Log In<span class="loginError" ng-if="loginMessage">: {{loginMessage}}</span></legend>
-                    </div>
-                    <div class="form-group">
-                      <label for="username" class="col-lg-2 col-lg-offset-1 control-label">Username</label>
-                      <div class="col-lg-7">
-                        <input type="text" id="username" name="username" placeholder="Enter Username" ng-model="user.username" class="form-control"/>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="password" class="col-lg-2 col-lg-offset-1 control-label">Password</label>
-                      <div class="col-lg-7">
-                        <input type="password" id="password" name="password" placeholder="Enter Password" ng-model="user.password" class="form-control"/>
-                      </div>
-                    </div>
-                    <br>
-                    <br>
-                    <div class="col-lg-4 col-lg-offset-8" style="margin-top: 95px">
-                      <p class="error">{{error}}</p>
-                      <button type="submit" class="button round small success">Login</button>&nbsp;
-                      <a ng-click="closeLogin()"><button type="button" class="button round small alert">Cancel</button></a>
-                    </div>
-                  </fieldset>
-                </form>
-              </div>
-              <div class="columns small-6">
-                <form role="form" ng-submit="register(newUser)" class="loginForm">
-                  <fieldset class="thoseForms">
-                    <div class="col-lg-10 col-lg-offset-2">
-                      <legend>Registration</legend>
-                    </div>
-                    <div class="form-group">
-                      <label for="username" class="col-lg-2 col-lg-offset-1 control-label">Username</label>
-                      <div class="col-lg-7">
-                        <input type="text" id="username" name="username" placeholder="Enter Username" ng-model="newUser.username" class="form-control"/>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="email" class="col-lg-2 col-lg-offset-1 control-label">Email</label>
-                      <div class="col-lg-7">
-                        <input type="email" name="email" placeholder="Enter Email" id="email" ng-model="newUser.email" class="form-control"/>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="password" class="col-lg-2 col-lg-offset-1 control-label">Password</label>
-                      <div class="col-lg-7">
-                        <input type="password" name="password" placeholder="Password" id="password" ng-model="newUser.password" class="form-control"/>
-                      </div>
-                    </div>
-                    <br>
-                    <br>
-                    <div class="col-lg-4 col-lg-offset-8">
-                      <p class="error">{{error}}</p>
-                      <button type="submit" class="button round small success">Register</button>&nbsp;
-                      <a ng-click="closeLogin()"><button type="button" class="button round small alert">Cancel</button></a>
-                    </div>
-                  </fieldset>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-        <a class="close-reveal-modal" aria-label="Close">&#215;</a>
-      </div>
-    </section>
-  </nav> -->
   <div ui-view></div>
   <div class="reveal" id="loginModal" data-reveal>
-    <h1>Awesome. I Have It.</h1>
     <div class="container">
       <div class="row">
         <div class="columns small-12">
@@ -167,7 +61,7 @@
                 <div class="col-lg-4 col-lg-offset-8" style="margin-top: 95px">
                   <p class="error">{{error}}</p>
                   <button type="submit" class="button round small success">Login</button>&nbsp;
-                  <a ng-click="closeLogin()"><button type="button" class="button round small alert">Cancel</button></a>
+                  <a ng-click="closeModal()"><button type="button" class="button round small alert">Cancel</button></a>
                 </div>
               </fieldset>
             </form>
@@ -201,7 +95,7 @@
                 <div class="col-lg-4 col-lg-offset-8">
                   <p class="error">{{error}}</p>
                   <button type="submit" class="button round small success">Register</button>&nbsp;
-                  <a ng-click="closeLogin()"><button type="button" class="button round small alert">Cancel</button></a>
+                  <a ng-click="closeModal()"><button type="button" class="button round small alert">Cancel</button></a>
                 </div>
               </fieldset>
             </form>

@@ -1,11 +1,34 @@
 app.controller('mainCtrl', function($scope, $state, $http){
   console.log("hello")
   $scope.message = "hello"
+  $http.get('/user').success(function(currentUser){
+    $scope.currentUser = currentUser
+  })
+  var $modal = $('#loginModal');
+
+
+  $scope.search = function(drinkName) {
+    searchResult = {}
+    searchResult.drinkName = drinkName
+    $http.post('/drink', searchResult ).success(function(drink) {
+      console.log(drink)
+      $scope.drinks = drink
+    })
+  }
+  $scope.closeModal = function() {
+    $.ajax('/')
+      .done(function(resp){
+        $modal.html(resp.html).foundation('close');
+    });
+  }
 
   $scope.login = function(user) {
     $http.post('/users/login', user).success(function(user){
       $scope.currentUser = user;
-      $('#loginModal').foundation('reveal', 'close');
+      $.ajax('/')
+        .done(function(resp){
+          $modal.html(resp.html).foundation('close');
+      });
     }).error(function(err) {
       $scope.loginMessage = "Incorrect Username/Password Combination"
     })
@@ -24,7 +47,10 @@ app.controller('mainCtrl', function($scope, $state, $http){
       }
       else {
         $scope.currentUser = err;
-        $('#loginModal').foundation('reveal', 'close');
+        $.ajax('/')
+          .done(function(resp){
+            $modal.html(resp.html).foundation('close');
+        });
       }
     });
   };

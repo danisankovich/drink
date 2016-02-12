@@ -6,3 +6,25 @@ body {
 a {
   color: #00B7FF;
 }
+.borderThis {
+  margin-top: 20px;
+  border: 1px black solid;
+  padding: 7px 7px 7px 7px;
+}
+.heightSpace {
+  margin-top: 30px;
+}
+.setHeight {
+  margin-top: 20px;
+  height: 400px;
+}
+.scroll {
+  height: 280px;
+  overflow:auto;
+}
+.imgSize {
+  height: 75px;
+}
+.title {
+  border-bottom: 1px solid black;
+}
